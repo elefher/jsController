@@ -23,6 +23,18 @@ jQuery.extend({
             },
             loadShowupForm: function() {
                 var form = model.getForm();
+                if (form) {
+                    $.each(form, function(i) {
+                        console.log(form.length);
+                        view.form(form[i]/*[i].name*/);
+                    });
+                } else {     
+                    console.log('else');
+                    /*$.each(form, function(i) {
+                        console.log('else');
+                        view.form(form[i]/*[i].name);
+                    });*/
+                }
             }
         });
         view.addListener(vlist);

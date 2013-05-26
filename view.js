@@ -24,7 +24,7 @@ jQuery.extend({
         }
         
         this.form=function(formdata){
-            $messages.append(formdata);
+            $messages.append('<input type="'+formdata.type+'" name="'+formdata.name+'"/>');
         }
 
         /**
@@ -47,12 +47,10 @@ jQuery.extend({
         }));
         $console.append($messages);
 
-
         /**
          * add a listener to this view
          */
         this.addListener = function(list) {
-            alert('view');
             listeners.push(list);
         }
 
