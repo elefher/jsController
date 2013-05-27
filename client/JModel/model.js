@@ -1,6 +1,10 @@
 jQuery.extend({
     Model: function() {
         /**
+         * server path.(Send request to controller)
+         */
+        var path = 'server/controller/';
+        /**
          * our local cache of data
          */
         var cache = new Array();
@@ -30,9 +34,10 @@ jQuery.extend({
          */
         function loadResponse(data) {
             $.each(data, function(item) {
-                cache[data[item].id] = data[item];
+                cache[data[item].type] = data[item];                
                 that.notifyItemLoaded(data[item]);
             });
+            console.log(cache);
         }
 
         /**
@@ -66,7 +71,7 @@ jQuery.extend({
          * loaded
          */
         this.getAll = function() {
-            var outCache = toArray();            
+            var outCache = toArray();
             if (outCache.length)
                 return outCache;
             that.notifyLoadBegin();
@@ -92,12 +97,16 @@ jQuery.extend({
             if (outCache.length)
                 return outCache;
             that.notifyLoadBegin();
+            //create an object
+            var objsend = {
+                "method": 'LogOut'
+            };
+            var json_object = JSON.stringify(objsend);
             $.ajax({
-                url: 'ajax.php',
-                data: {load: true},
-                type: 'GET',
+                url: path + 'router.php',
+                data: {'data': json_object},
+                type: 'post',
                 dataType: 'json',
-                timeout: 1000,
                 error: function() {
                     that.notifyLoadFail();
                 },
